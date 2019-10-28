@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input type="file" accept="image/*" capture="camera">
+    <br>
+    <br>
+    <img id="myImg" src="#" alt="your image" height="900" width="1600">
+    <!-- v2 -->
+    <script src='https://unpkg.com/tesseract.js@v2.0.0-beta.1/dist/tesseract.min.js'></script>
+    <script>
+
+        document.querySelector('input[type="file"]').addEventListener('change', function () {
+            if (this.files && this.files[0]) {
+                var img = document.querySelector('img');  // $('img')[0]
+                img.src = URL.createObjectURL(this.files[0]); // set src to file url
+
+                Tesseract.recognize(
+                    this.files[0],
+                    'eng',
+                    { logger: m => console.log(m) }
+                ).then(({ data: { text } }) => {
+                    console.log(text);
+                })
+            }
+        });
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
